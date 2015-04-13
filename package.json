@@ -1,0 +1,35 @@
+{
+  "name": "metalsmith-jstransformer",
+  "version": "0.0.1",
+  "description": "Metalsmith JSTransformer Plugin",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/RobLoach/metalsmith-jstransformer"
+  },
+  "keywords": [
+    "metalsmith",
+    "jstransformer"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RobLoach/metalsmith-jstransformer/issues"
+  },
+  "homepage": "https://github.com/RobLoach/metalsmith-jstransformer",
+  "dependencies": {
+    "jstransformer": "~0.0.2",
+    "minimatch": "^2.0.4"
+  },
+  "devDependencies": {
+    "jstransformer-jade": "~0.0.3",
+    "assert-dir-equal": "*",
+    "metalsmith": "^1.5.0",
+    "mocha": "*"
+  }
+}
