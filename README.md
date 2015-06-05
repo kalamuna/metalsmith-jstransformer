@@ -15,6 +15,10 @@
 If you haven't checked out [Metalsmith](http://metalsmith.io) before, head over
 to their website and check out the documentation.
 
+First, create a file that you would like to act on with JSTransformers, with
+the file name of "example.html.<pluginname>". In the following Jade example, it
+would be `example.html.jade`.
+
 ### CLI
 
 If you are using the command-line version of Metalsmith, you can install via npm, and then add the
@@ -39,7 +43,7 @@ If you are using the JS Api for Metalsmith, then you can require the module and 
 var jstransformer = require('metalsmith-jstransformer');
 
 metalsmith.use(jstransformer([
-  'jade'
+  "jade"
 ]));
 ```
 
@@ -48,5 +52,5 @@ metalsmith.use(jstransformer([
 An array of strings representing which JSTransformers to use. Example:
 
 ```javascript
-['jade', 'scss']
+["jade", "scss"]
 ```

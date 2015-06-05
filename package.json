@@ -24,11 +24,13 @@
   "homepage": "https://github.com/RobLoach/metalsmith-jstransformer",
   "dependencies": {
     "jstransformer": "^0.0.2",
+    "merge": "^1.2.0",
     "minimatch": "^2.0.4"
   },
   "devDependencies": {
-    "jstransformer-jade": "*",
     "assert-dir-equal": "*",
+    "jstransformer-jade": "*",
+    "jstransformer-styl": "^0.1.0",
     "metalsmith": "^1.7.0",
     "mocha": "*"
   }

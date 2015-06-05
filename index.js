@@ -1,25 +1,10 @@
 var minimatch = require('minimatch');
 var jstransformer = require('jstransformer');
 var path = require('path');
+var merge = require('merge');
 
-function plugin (opts) {
+module.exports = function (opts) {
   var transformers = {};
-
-  var mix = function(obj1, obj2) {
-    var newObj = {};
-    var key;
-    for (key in obj1) {
-      if (obj1.hasOwnProperty(key)) {
-        newObj[key] = obj1[key];
-      }
-    }
-    for (key in obj2) {
-      if (obj2.hasOwnProperty(key)) {
-        newObj[key] = obj2[key];
-      }
-    }
-    return newObj;
-  };
 
   // Load all the required JSTransformers.
   for (var i in opts || {}) {
@@ -29,19 +14,13 @@ function plugin (opts) {
 
   return function (files, metalsmith, done) {
     for (var transform in transformers) {
-      // Find all files that can be handled by the given transform.
-      // TODO: Use .inputFormats().
-      var process = Object.keys(files).filter(
-        minimatch.filter('*.' + transform, {
-          matchBase: true
-        })
-      );
 
-      // Loop through each transformable file.
-      for (var file in process) {
-        var filename = process[file];
+      // Find all files that match the given transformer.
+      var transformFiles = minimatch.match(Object.keys(files), "*." + transform);
+      for (var i in transformFiles) {
+        var filename = transformFiles[i];
         var data = files[filename];
-        var locals = mix(data, metalsmith.metadata());
+        var locals = merge(data, metalsmith.metadata());
 
         // Construct the new file name.
         var name = path.basename(filename, path.extname(filename));
@@ -52,7 +31,7 @@ function plugin (opts) {
         }
 
         // Process the file contents using the transformer.
-        var result = transformers[transform].render(data.contents, locals);
+        var result = transformers[transform].render(data.contents.toString('utf-8'), locals);
         data.contents = new Buffer(result.body);
 
         // Replace the file with the newly processed one.
@@ -63,6 +42,4 @@ function plugin (opts) {
 
     done();
   }
-}
-
-module.exports = plugin;
+};
