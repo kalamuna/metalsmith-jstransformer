@@ -16,10 +16,13 @@ module.exports = function (opts) {
     for (var transform in transformers) {
 
       // Find all files that match the given transformer.
-      var transformFiles = minimatch.match(Object.keys(files), "*." + transform);
+      var transformFiles = minimatch.match(Object.keys(files), "*." + transform, {
+        matchBase: true
+      });
       for (var i in transformFiles) {
         var filename = transformFiles[i];
         var data = files[filename];
+        var dir = path.dirname(filename);
         var locals = merge(data, metalsmith.metadata());
 
         // Construct the new file name.
@@ -36,7 +39,8 @@ module.exports = function (opts) {
 
         // Replace the file with the newly processed one.
         delete files[filename];
-        files[name] = data;
+        var finalPath = path.join(dir, name);
+        files[finalPath] = data;
       }
     }
 
