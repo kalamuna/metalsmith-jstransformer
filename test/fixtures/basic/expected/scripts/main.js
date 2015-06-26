@@ -1,0 +1,1 @@
+(function(){var a,c;a=42,c=!0}).call(this);

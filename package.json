@@ -7,7 +7,7 @@
     "index.js"
   ],
   "scripts": {
-    "test": "mocha"
+    "test": "standard index.js test/index.js; mocha"
   },
   "repository": {
     "type": "git",
@@ -23,15 +23,16 @@
   },
   "homepage": "https://github.com/RobLoach/metalsmith-jstransformer",
   "dependencies": {
-    "jstransformer": "^0.0.2",
-    "merge": "^1.2.0",
-    "minimatch": "^2.0.4"
+    "jstransformer": "^0.0.2"
   },
   "devDependencies": {
     "assert-dir-equal": "*",
+    "jstransformer-coffee-script": "*",
     "jstransformer-jade": "*",
-    "jstransformer-styl": "^0.1.0",
+    "jstransformer-styl": "*",
+    "jstransformer-uglify-js": "git://github.com/jstransformers/jstransformer-uglify-js.git#master",
     "metalsmith": "^1.7.0",
-    "mocha": "*"
+    "mocha": "*",
+    "standard": "^4.3.3"
   }
 }
