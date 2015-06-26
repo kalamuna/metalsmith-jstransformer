@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/RobLoach/metalsmith-jstransformer",
   "dependencies": {
-    "jstransformer": "^0.0.2"
+    "jstransformer": "^0.0.2",
+    "list-of-jstransformers": "0.0.2"
   },
   "devDependencies": {
     "assert-dir-equal": "*",

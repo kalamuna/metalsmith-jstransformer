@@ -1,15 +1,21 @@
 var jstransformer = require('jstransformer')
+var listOfJsTransformers = require('list-of-jstransformers')
 var transformers = {}
 
 /**
  * Get the transformer from the given name.
+ *
+ * @return The JSTransformer; null if it doesn't exist.
  */
 function getTransformer (name) {
-  if (transformers[name]) {
+  if (listOfJsTransformers.indexOf(name) >= 0) {
+    if (transformers[name]) {
+      return transformers[name]
+    }
+    transformers[name] = jstransformer(require('jstransformer-' + name))
     return transformers[name]
   }
-  transformers[name] = jstransformer(require('jstransformer-' + name))
-  return transformers[name]
+  return null
 }
 
 module.exports = function (opts) {
@@ -23,15 +29,15 @@ module.exports = function (opts) {
         var transforms = extensions.splice(2)
         // Loop through backwards through each extension.
         for (var i = transforms.length - 1; i >= 0; i--) {
-          // Retrieve the transform name.
-          var transformName = transforms[i]
-          var transformer = getTransformer(transformName)
-
-          // Process the content of the file with the transformer.
-          var input = files[file].contents.toString()
-          // TODO: Figure out what to do for options.
-          var output = transformer.render(input, files[file], files[file])
-          files[file].contents = new Buffer(output.body)
+          // Retrieve the transformer.
+          var transformer = getTransformer(transforms[i])
+          if (transformer) {
+            // Process the content of the file with the transformer.
+            var input = files[file].contents.toString()
+            // TODO: Figure out what to do for options.
+            var output = transformer.render(input, files[file], files[file])
+            files[file].contents = new Buffer(output.body)
+          }
         }
 
         // Now that content is updated, rename without the extensions.
