@@ -1,6 +1,6 @@
 {
   "name": "metalsmith-jstransformer",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Metalsmith JSTransformer Plugin",
   "main": "index.js",
   "files": [
@@ -31,7 +31,7 @@
     "jstransformer-coffee-script": "^0.1.0",
     "jstransformer-jade": "0.0.3",
     "jstransformer-styl": "^0.1.0",
-    "jstransformer-uglify-js": "^0.4.0",
+    "jstransformer-uglify-js": "^0.0.4",
     "metalsmith": "^1.7.0",
     "mocha": "*",
     "standard": "^4.3.3"
