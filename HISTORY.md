@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.1.x: 2015-xx-xx
+## v0.2.0: 2015-07-03
 
 - Only act on existing JSTransformers
 

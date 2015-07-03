@@ -25,8 +25,7 @@ Jade -> HTML-Minifier -> example.html
 
 ### CLI
 
-If you are using the command-line version of Metalsmith, you can install via npm, and then add the
-`metalsmith-jstransformer` key to your `metalsmith.json` file:
+If you are using the command-line version of Metalsmith, you can install via npm, and then add the `metalsmith-jstransformer` key to your `metalsmith.json` file:
 
 ```json
 {
@@ -38,8 +37,7 @@ If you are using the command-line version of Metalsmith, you can install via npm
 
 ### JavaScript
 
-If you are using the JS Api for Metalsmith, then you can require the module and add it to your
-`.use()` directives:
+If you are using the JS Api for Metalsmith, then you can require the module and add it to your `.use()` directives:
 
 ```js
 var jstransformer = require('metalsmith-jstransformer');
