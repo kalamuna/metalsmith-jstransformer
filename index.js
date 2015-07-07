@@ -42,7 +42,7 @@ module.exports = function (opts) {
             var input = files[file].contents.toString()
 
             // Construct the options.
-            var options = extend({}, files[file], {
+            var options = extend({}, metalsmith.metadata(), files[file], {
               filename: metalsmith.source() + '/' + file
             })
 
