@@ -25,16 +25,16 @@
   "dependencies": {
     "extend": "^3.0.0",
     "jstransformer": "^0.0.2",
-    "list-of-jstransformers": "^0.0.2"
+    "list-of-jstransformers": "*"
   },
   "devDependencies": {
-    "assert-dir-equal": "^1.0.1",
-    "jstransformer-coffee-script": "^0.1.0",
-    "jstransformer-jade": "^0.0.3",
-    "jstransformer-styl": "^0.1.0",
-    "jstransformer-uglify-js": "^0.0.4",
-    "metalsmith": "^1.7.0",
+    "assert-dir-equal": "1.*",
+    "jstransformer-coffee-script": "0.*",
+    "jstransformer-jade": "0.*",
+    "jstransformer-styl": "0.*",
+    "jstransformer-uglify-js": "0.*",
+    "metalsmith": "1.*",
     "mocha": "*",
-    "standard": "^4.3.3"
+    "standard": "4.*"
   }
 }
