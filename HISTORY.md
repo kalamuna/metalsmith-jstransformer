@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.4.0: 2015-07-06
+## v0.4.0: 2015-07-08
 
 - Added processing on `inputFormats` rather than using the Transformer name
 - Added Transformer outputFormat support
