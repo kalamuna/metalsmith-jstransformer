@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.4.0: 2015-07-06
+
+- Added processing on `inputFormats` rather than using the Transformer name
+- Added Transformer outputFormat support
+
 ## v0.3.0: 2015-07-06
 
 - Rename the file on acted transformers

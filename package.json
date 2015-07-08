@@ -1,6 +1,6 @@
 {
   "name": "metalsmith-jstransformer",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Metalsmith JSTransformer Plugin",
   "main": "index.js",
   "files": [
@@ -24,13 +24,14 @@
   "homepage": "https://github.com/RobLoach/metalsmith-jstransformer",
   "dependencies": {
     "extend": "^3.0.0",
-    "jstransformer": "^0.0.2",
-    "list-of-jstransformers": "*"
+    "inputformat-to-jstransformer": "^1.1.0",
+    "jstransformer": "^0.0.2"
   },
   "devDependencies": {
     "assert-dir-equal": "1.*",
     "jstransformer-coffee-script": "0.*",
     "jstransformer-jade": "0.*",
+    "jstransformer-marked": "0.0.2",
     "jstransformer-styl": "0.*",
     "jstransformer-uglify-js": "0.*",
     "metalsmith": "1.*",

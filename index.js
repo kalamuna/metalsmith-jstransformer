@@ -1,5 +1,5 @@
 var jstransformer = require('jstransformer')
-var listOfJsTransformers = require('list-of-jstransformers')
+var toTransformer = require('inputformat-to-jstransformer')
 var transformers = {}
 var path = require('path')
 var extend = require('extend')
@@ -10,30 +10,28 @@ var extend = require('extend')
  * @return The JSTransformer; null if it doesn't exist.
  */
 function getTransformer (name) {
-  if (listOfJsTransformers.indexOf(name) >= 0) {
-    if (transformers[name]) {
-      return transformers[name]
-    }
-
-    var transform = null
-    try {
-      transform = jstransformer(require('jstransformer-' + name))
-    } catch (e) {
-      // Do nothing.
-    }
-    transformers[name] = transform
+  if (transformers[name]) {
     return transformers[name]
   }
+  var transformer = toTransformer(name)
+  if (transformer) {
+    transformer = jstransformer(transformer)
+  }
+  transformers[name] = transformer
+  return transformer
 }
 
 module.exports = function (opts) {
   return function (files, metalsmith, done) {
     // Loop through every file.
     for (var file in files) {
-      // Ignore all partials.
+      // Do not process partials.
       if (path.basename(file).charAt(0) !== '_') {
         // Get all the transforming extensions.
         var extensions = file.split('.')
+        // Prepare what the default output format should be.
+        var outputFormat = ''
+        // Loop through all the extensions in reverse order.
         for (var i = extensions.length - 1; i > 0; i--) {
           // Retrieve the transformer.
           var transformer = getTransformer(extensions[i])
@@ -42,11 +40,11 @@ module.exports = function (opts) {
             var input = files[file].contents.toString()
 
             // Construct the options.
+            // TODO: Figure out what other options to inject.
             var options = extend({}, metalsmith.metadata(), files[file], {
               filename: metalsmith.source() + '/' + file
             })
 
-            // TODO: Figure out what to do for options.
             var output = transformer.render(input, options, options)
             files[file].contents = new Buffer(output.body)
 
@@ -57,10 +55,19 @@ module.exports = function (opts) {
             filepath.pop()
             file = filepath.join('.')
             files[file] = data
+
+            // Retrieve the new output format for the given transformer.
+            outputFormat = transformer.outputFormat
           } else {
             // Skip the rest of the file transformations.
             break
           }
+        }
+        // Rename the file to the output format, if no extension was provided.
+        if (path.extname(file) === '' && outputFormat !== '') {
+          var newFile = files[file]
+          delete files[file]
+          files[file + '.' + outputFormat] = newFile
         }
       }
     }
