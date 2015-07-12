@@ -7,7 +7,7 @@
     "index.js"
   ],
   "scripts": {
-    "test": "standard index.js test/index.js; mocha"
+    "test": "standard index.js test/index.js; mocha --no-timeouts"
   },
   "repository": {
     "type": "git",
@@ -23,17 +23,19 @@
   },
   "homepage": "https://github.com/RobLoach/metalsmith-jstransformer",
   "dependencies": {
+    "async": "^1.3.0",
+    "clone": "^1.0.2",
     "extend": "^3.0.0",
-    "inputformat-to-jstransformer": "^1.1.0",
+    "inputformat-to-jstransformer": "^1.1.2",
     "jstransformer": "^0.0.2"
   },
   "devDependencies": {
     "assert-dir-equal": "1.*",
-    "jstransformer-coffee-script": "0.*",
-    "jstransformer-jade": "0.*",
-    "jstransformer-marked": "0.0.2",
-    "jstransformer-styl": "0.*",
-    "jstransformer-uglify-js": "0.*",
+    "jstransformer-coffee-script": "*",
+    "jstransformer-jade": "*",
+    "jstransformer-styl": "*",
+    "jstransformer-uglify-js": "*",
+    "jstransformer-markdown-it": "*",
     "metalsmith": "1.*",
     "mocha": "*",
     "standard": "4.*"
