@@ -1,10 +1,10 @@
 var jstransformer = require('jstransformer')
 var toTransformer = require('inputformat-to-jstransformer')
-var transformers = {}
 var path = require('path')
 var extend = require('extend')
 var async = require('async')
 var clone = require('clone')
+var transformers = {}
 
 /**
  * Get the transformer from the given name.
@@ -16,11 +16,7 @@ function getTransformer (name) {
     return transformers[name]
   }
   var transformer = toTransformer(name)
-  if (transformer) {
-    transformers[name] = jstransformer(transformer)
-  } else {
-    transformers[name] = false
-  }
+  transformers[name] = transformer ? jstransformer(transformer) : false
   return transformers[name]
 }
 
@@ -53,7 +49,9 @@ module.exports = function (opts) {
 
           // Get the transformer to render the contents.
           transformer.renderAsync(files[file].contents.toString(), options, options).then(function (result) {
+            // Allow providing the default output format.
             files[file].jstransformer_outputFormat = transformer.outputFormat
+            // Remove an extension from the end.
             files[file].jstransformer_filepath.pop()
             files[file].contents = result.body
             done()
@@ -76,6 +74,9 @@ module.exports = function (opts) {
       async.mapSeries(extensions, processExtension, done)
     }
 
+    /**
+     * Rename the given file to its desired new name.
+     */
     function renameFile (file, done) {
       var filename = file
       // Check if there is a potential filepath change.
