@@ -82,7 +82,7 @@ module.exports = function (opts) {
       // Check if there is a potential filepath change.
       if (files[file].jstransformer_filepath) {
         // See if we should add the default output format.
-        if (files[file].jstransformer_filepath.length === 1) {
+        if (files[file].jstransformer_filepath.length === 1 && files[file].jstransformer_outputFormat) {
           files[file].jstransformer_filepath.push(files[file].jstransformer_outputFormat)
         }
         filename = files[file].jstransformer_filepath.join('.')
