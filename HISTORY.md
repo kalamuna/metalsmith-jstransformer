@@ -1,5 +1,9 @@
 # Changelog
 
+## vx.x.x
+
+- Switch to minimatch for filtering files
+
 ## v0.5.0: 2015-07-11
 
 - Added async support

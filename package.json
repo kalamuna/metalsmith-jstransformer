@@ -2,7 +2,6 @@
   "name": "metalsmith-jstransformer",
   "version": "0.5.0",
   "description": "Metalsmith JSTransformer Plugin",
-  "main": "index.js",
   "files": [
     "index.js"
   ],
@@ -27,7 +26,8 @@
     "clone": "^1.0.2",
     "extend": "^3.0.0",
     "inputformat-to-jstransformer": "^1.1.2",
-    "jstransformer": "^0.0.2"
+    "jstransformer": "0.0.*",
+    "minimatch": "^2.0.8"
   },
   "devDependencies": {
     "assert-dir-equal": "1.*",

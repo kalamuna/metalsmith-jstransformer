@@ -1,16 +1,17 @@
 var jstransformer = require('jstransformer')
 var toTransformer = require('inputformat-to-jstransformer')
-var path = require('path')
 var extend = require('extend')
 var async = require('async')
 var clone = require('clone')
+var match = require('minimatch').match
+
 var transformers = {}
 
 /**
- * Get the transformer from the given name.
- *
- * @return The JSTransformer; null if it doesn't exist.
- */
+* Get the transformer from the given name.
+*
+* @return The JSTransformer; null if it doesn't exist.
+*/
 function getTransformer (name) {
   if (name in transformers) {
     return transformers[name]
@@ -21,14 +22,12 @@ function getTransformer (name) {
 }
 
 module.exports = function (opts) {
-  return function (files, metalsmith, done) {
-    /**
-     * Return whether or not we are to process the given file.
-     */
-    function filterFile (file, done) {
-      done(path.basename(file).charAt(0) !== '_')
-    }
+  // Prepare the options.
+  opts = opts || {}
+  opts.pattern = opts.pattern || '[!_]*'
 
+  // Execute the plugin.
+  return function (files, metalsmith, done) {
     /**
      * Process the given file. Call done() when done processing.
      */
@@ -98,17 +97,17 @@ module.exports = function (opts) {
       done()
     }
 
-    // Filter out each file that we don't need to act on.
-    async.filter(Object.keys(files), filterFile, function (results) {
-      // Process each individual file.
-      async.map(results, processFile, function (err) {
-        if (err) {
-          done(err)
-        } else {
-          // Now rename all the files.
-          async.map(results, renameFile, done)
-        }
-      })
+    // Filter out all the files we are to ignore.
+    var results = match(Object.keys(files), opts.pattern, { matchBase: true })
+
+    // Process each file.
+    async.map(results, processFile, function (err) {
+      if (err) {
+        done(err)
+      } else {
+        // Now rename all the files.
+        async.map(results, renameFile, done)
+      }
     })
   }
 }
