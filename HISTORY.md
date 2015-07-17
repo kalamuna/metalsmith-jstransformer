@@ -1,8 +1,9 @@
 # Changelog
 
-## vx.x.x
+## v0.5.1
 
 - Switch to minimatch for filtering files
+- Update dependencies
 
 ## v0.5.0: 2015-07-11
 
