@@ -39,6 +39,10 @@ Use multiple transformers by appending additional file extension transformer nam
 
 ### Example
 
+The following example uses [Jade](http://jade-lang.com), so we must additionally install [`jstransformer-jade`](npm.im/jstransformer-jade):
+
+    npm install jstransformer-jade --save
+
 #### `src/example.html.jade`
 
 ```
