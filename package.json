@@ -36,8 +36,8 @@
     "jstransformer-styl": "*",
     "jstransformer-uglify-js": "*",
     "jstransformer-markdown-it": "*",
-    "metalsmith": "1.*",
+    "metalsmith": "2.*",
     "mocha": "*",
-    "standard": "4.*"
+    "standard": "5.*"
   }
 }
