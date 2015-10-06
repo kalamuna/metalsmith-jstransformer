@@ -52,7 +52,7 @@ module.exports = function (opts) {
             files[file].jstransformer_outputFormat = transformer.outputFormat
             // Remove an extension from the end.
             files[file].jstransformer_filepath.pop()
-            files[file].contents = result.body
+            files[file].contents = new Buffer(result.body)
             done()
           }, function (err) {
             files[file].jstransformer_done = true
