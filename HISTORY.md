@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.5.2
+
+- Update `minimatch` to `^3.0.0`
+
 ## v0.5.1
 
 - Switch to minimatch for filtering files

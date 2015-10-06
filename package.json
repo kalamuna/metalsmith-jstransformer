@@ -1,12 +1,12 @@
 {
   "name": "metalsmith-jstransformer",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Metalsmith JSTransformer Plugin",
   "files": [
     "index.js"
   ],
   "scripts": {
-    "test": "standard index.js test/index.js; mocha --no-timeouts"
+    "test": "mocha --no-timeouts && standard index.js test/index.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,7 @@
     "extend": "^3.0.0",
     "inputformat-to-jstransformer": "^1.1.2",
     "jstransformer": "0.0.*",
-    "minimatch": "^2.0.8"
+    "minimatch": "^3.0.0"
   },
   "devDependencies": {
     "assert-dir-equal": "1.*",
