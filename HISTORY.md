@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.5.3
+
+- Fixed output to be a Buffer
+  - [#4](https://github.com/RobLoach/metalsmith-jstransformer/pull/4) by [@klaftertief](https://github.com/klaftertief)
+
 ## v0.5.2
 
 - Update `minimatch` to `^3.0.0`

@@ -1,6 +1,6 @@
 {
   "name": "metalsmith-jstransformer",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Metalsmith JSTransformer Plugin",
   "files": [
     "index.js"
