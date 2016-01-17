@@ -16,7 +16,10 @@ If you are using the command-line version of Metalsmith, you can install via npm
 ```json
 {
   "plugins": {
-    "metalsmith-jstransformer": {}
+    "metalsmith-jstransformer": {
+      'layoutPattern': 'layouts/**',
+      'defaultLayout': null
+    }
   }
 }
 ```
@@ -28,22 +31,27 @@ If you are using the JS Api for Metalsmith, then you can require the module and 
 ```js
 var jstransformer = require('metalsmith-jstransformer');
 
-metalsmith.use(jstransformer());
+metalsmith.use(jstransformer({
+  'layoutPattern': 'layouts/**',
+  'defaultLayout': null
+}));
 ```
 
-## Usage
+## Convention
+
+### File Names
 
 Create files that you would like to act on with JSTransformers with file extensions representing the transformer to use, in the format `example.html.<transformer>`. For example, if you would like to process with Jade, you would name it `example.html.jade`.
 
 Use multiple transformers by appending additional file extension transformer names at the end. For example, to [HTML-Minifier](https://github.com/jstransformers/jstransformer-html-minifier) our Jade example above, you would use the filename `example.html.html-minifier.jade`.
 
-### Example
+#### Example
 
 The following example uses [Jade](http://jade-lang.com), so we must additionally install [`jstransformer-jade`](http://npm.im/jstransformer-jade):
 
     npm install jstransformer-jade --save
 
-#### `src/example.html.jade`
+##### `src/example.html.jade`
 
 ```
 ---
@@ -58,7 +66,7 @@ html(lang="en")
     p This is my site!
 ```
 
-#### Result
+##### Result
 
 ``` html
 <!doctype html>
@@ -71,6 +79,64 @@ html(lang="en")
   </body>
 </html>
 ```
+
+### Layouts
+
+Declare layouts for your content with the extension of the template engine to be used for the layout.
+
+#### Example
+
+The following example uses [Jade](http://jade-lang.com) and [Markdown-it](https://www.npmjs.com/package/markdown-it), so we must additionally install [`jstransformer-jade`](http://npm.im/jstransformer-jade) and [`jstransformer-markdown-it`](https://www.npmjs.com/package/jstransformer-markdown-it):
+
+    npm install jstransformer-jade --save
+    npm install jstransformer-markdown-it --save
+
+##### `src/layouts/default.jade`
+
+``` jade
+---
+pretty: true
+---
+doctype html
+html
+  head
+    title My Site
+  body!= contents
+```
+
+Within the metadata of content in your `src` directory, tell it which layout to use:
+
+##### `src/index.md`
+
+``` yaml
+---
+layout: layouts/default.jade
+---
+This is my **site**!
+```
+
+#### Result
+``` html
+<!doctype html>
+<html>
+  <head>
+    <title>My Site</title>
+  </head>
+  <body>
+    <p>This is my <strong>site</strong>!</p>
+  </body>
+</html>
+```
+
+### Configuration
+
+#### `.layoutPattern`
+
+The pattern used to find your layouts. Default is `layouts/**`.
+
+#### `.defaultLayout
+
+If provided, will be used as the default layout for content that doesn't have a layout explicitly defined. Default is `null`.
 
 ## License
 
