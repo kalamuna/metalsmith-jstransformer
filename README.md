@@ -17,8 +17,8 @@ If you are using the command-line version of Metalsmith, you can install via npm
 {
   "plugins": {
     "metalsmith-jstransformer": {
-      'layoutPattern': 'layouts/**',
-      'defaultLayout': null
+      "layoutPattern": "layouts/**",
+      "defaultLayout": null
     }
   }
 }
