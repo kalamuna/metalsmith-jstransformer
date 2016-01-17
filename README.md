@@ -39,11 +39,11 @@ metalsmith.use(jstransformer({
 
 ## Convention
 
-### File Names
+### Content File Names
 
-Create files that you would like to act on with JSTransformers with file extensions representing the transformer to use, in the format `example.html.<transformer>`. For example, if you would like to process with Jade, you would name it `example.html.jade`.
+Create files that you would like to act on with JSTransformers with file extensions representing the transformer to use, in the format `example.html.<transformer>`. For example, if you would like to process with Jade, you would name it `src/example.html.jade`.
 
-Use multiple transformers by appending additional file extension transformer names at the end. For example, to [HTML-Minifier](https://github.com/jstransformers/jstransformer-html-minifier) our Jade example above, you would use the filename `example.html.html-minifier.jade`.
+Use multiple transformers by appending additional file extension transformer names at the end. For example, to [HTML-Minifier](https://github.com/jstransformers/jstransformer-html-minifier) our Jade example above, you would use the filename `src/example.html.html-minifier.jade`.
 
 #### Example
 
@@ -82,7 +82,7 @@ html(lang="en")
 
 ### Layouts
 
-Declare layouts for your content with the extension of the template engine to be used for the layout.
+Declare layouts for your content with the extension of the template engine to be used for the layout, in the `src/layouts/**` directory.
 
 #### Example
 
@@ -128,15 +128,15 @@ This is my **site**!
 </html>
 ```
 
-### Configuration
+## Configuration
 
-#### `.layoutPattern`
+### `.layoutPattern`
 
-The pattern used to find your layouts. Default is `layouts/**`.
+The pattern used to find your layouts. Defaults to `layouts/**`.
 
-#### `.defaultLayout
+### `.defaultLayout`
 
-If provided, will be used as the default layout for content that doesn't have a layout explicitly defined. Default is `null`.
+If provided, will be used as the default layout for content that doesn't have a layout explicitly defined. Defaults to `null`.
 
 ## License
 
