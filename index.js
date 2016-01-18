@@ -2,8 +2,9 @@ var jstransformer = require('jstransformer')
 var toTransformer = require('inputformat-to-jstransformer')
 var extend = require('extend')
 var async = require('async')
+var path = require('path')
 var clone = require('clone')
-var match = require('minimatch').match
+var minimatch = require('minimatch')
 
 var transformers = {}
 
@@ -12,7 +13,7 @@ var transformers = {}
 *
 * @return The JSTransformer; null if it doesn't exist.
 */
-function getTransformer (name) {
+function getTransformer(name) {
   if (name in transformers) {
     return transformers[name]
   }
@@ -24,23 +25,98 @@ function getTransformer (name) {
 module.exports = function (opts) {
   // Prepare the options.
   opts = opts || {}
-  opts.pattern = opts.pattern || '[!_]*'
+  opts.layoutPattern = opts.layoutPattern || 'layouts/**'
+  var defaultLayout = opts.defaultLayout
 
   // Execute the plugin.
   return function (files, metalsmith, done) {
+    // Retrieve all layouts.
+    var templates = {}
+    var filesKeys = Object.keys(files)
+    var layouts = minimatch.match(filesKeys, opts.layoutPattern, {matchBase: true})
+
+    /**
+     * Compile the given layout and store it in templates.
+     */
+    function compileLayout(layout, done) {
+      // Find which JSTransformer to compile with.
+      var transform = path.extname(layout).substring(1)
+      transform = getTransformer(transform)
+      if (transform) {
+        // Retrieve the options for the JSTransformer.
+        var options = extend({}, files[layout], {
+          filename: path.join(metalsmith._directory, metalsmith._source, layout)
+        })
+
+        // Compile the content.
+        var content = files[layout].contents.toString()
+        transform.compileAsync(content, options).then(function (results) {
+          // Wire up the template for the layout.
+          templates[layout] = results
+
+          // Set the layout as the default layout, if desired.
+          if (files[layout].defaultLayout) {
+            defaultLayout = layout
+          }
+
+          // Finished compiling the layout into a template.
+          done()
+        }, function (err) {
+          done(err)
+        })
+      } else {
+        done('The layout ' + layout + ' has an unsupported transform of ' + transform + '.')
+      }
+    }
+
+    /**
+     * Delete the given file from the files array.
+     */
+    function deleteFile(file, done) {
+      if (file in files) {
+        delete files[file]
+      }
+      done()
+    }
+
+    /**
+     * Render the given file in its layout templates.
+     */
+    function renderContent(file, done) {
+      // Only render content, skip rendering layouts.
+      if (!(file in layouts)) {
+        var layoutName = files[file].layout || defaultLayout
+        while (layoutName && templates[layoutName]) {
+          // Build the options/locals.
+          var locals = extend({}, metalsmith.metadata(), files[layoutName], files[file], {
+            contents: files[file].contents.toString(),
+            filename: path.join(metalsmith._directory, metalsmith._source, layoutName)
+          })
+
+          // Render the content using the template function and options.
+          var output = templates[layoutName].fn(locals)
+          files[file].contents = output
+
+          // Allow for recursive explicit layouts.
+          layoutName = files[layoutName].layout
+        }
+      }
+      done()
+    }
+
     /**
      * Process the given file. Call done() when done processing.
      */
-    function processFile (file, done) {
+    function processFile(file, done) {
       /**
        * Process the given extension on the file.
        */
-      function processExtension (extension, done) {
+      function processExtension(extension, done) {
         // Retrieve the transformer.
         var transformer = getTransformer(extension)
 
         // Process the extension until the transformation is done.
-        if (transformer && !files[file].jstransformer_done) {
+        if (transformer && !files[file].jstransformerDone) {
           // Construct the options.
           var options = extend({}, metalsmith.metadata(), files[file], {
             filename: metalsmith.source() + '/' + file
@@ -49,25 +125,25 @@ module.exports = function (opts) {
           // Get the transformer to render the contents.
           transformer.renderAsync(files[file].contents.toString(), options, options).then(function (result) {
             // Allow providing the default output format.
-            files[file].jstransformer_outputFormat = transformer.outputFormat
+            files[file].jstransformerOutputFormat = transformer.outputFormat
             // Remove an extension from the end.
-            files[file].jstransformer_filepath.pop()
+            files[file].jstransformerFilePath.pop()
             files[file].contents = new Buffer(result.body)
             done()
           }, function (err) {
-            files[file].jstransformer_done = true
+            files[file].jstransformerDone = true
             done(err)
           })
         } else {
           // The transformer isn't supported, skip the rest.
-          files[file].jstransformer_done = true
+          files[file].jstransformerDone = true
           done()
         }
       }
 
       // Prepare the extension processing.
       var extensions = file.split('.')
-      files[file].jstransformer_filepath = clone(extensions)
+      files[file].jstransformerFilePath = clone(extensions)
       extensions.reverse().pop()
       // Loop through the transformer series.
       async.mapSeries(extensions, processExtension, done)
@@ -76,15 +152,15 @@ module.exports = function (opts) {
     /**
      * Rename the given file to its desired new name.
      */
-    function renameFile (file, done) {
+    function renameFile(file, done) {
       var filename = file
       // Check if there is a potential filepath change.
-      if (files[file].jstransformer_filepath) {
+      if (files[file].jstransformerFilePath) {
         // See if we should add the default output format.
-        if (files[file].jstransformer_filepath.length === 1 && files[file].jstransformer_outputFormat) {
-          files[file].jstransformer_filepath.push(files[file].jstransformer_outputFormat)
+        if (files[file].jstransformerFilePath.length === 1 && files[file].jstransformerOutputFormat) {
+          files[file].jstransformerFilePath.push(files[file].jstransformerOutputFormat)
         }
-        filename = files[file].jstransformer_filepath.join('.')
+        filename = files[file].jstransformerFilePath.join('.')
       }
 
       // See if we are to now rename the file.
@@ -97,16 +173,35 @@ module.exports = function (opts) {
       done()
     }
 
-    // Filter out all the files we are to ignore.
-    var results = match(Object.keys(files), opts.pattern, { matchBase: true })
-
-    // Process each file.
-    async.map(results, processFile, function (err) {
+    // TODO: Clean up function chaining tree.
+    // Compile all layouts.
+    async.map(layouts, compileLayout, function (err) {
       if (err) {
         done(err)
       } else {
-        // Now rename all the files.
-        async.map(results, renameFile, done)
+        // Render the content individually.
+        async.map(filesKeys, processFile, function (err) {
+          if (err) {
+            done(err)
+          } else {
+            // Render the content within the layouts.
+            async.map(filesKeys, renderContent, function (err) {
+              if (err) {
+                done(err)
+              } else {
+                // Delete the layout data.
+                async.map(layouts, deleteFile, function (err) {
+                  if (err) {
+                    done(err)
+                  } else {
+                    // Now rename all the files.
+                    async.map(Object.keys(files), renameFile, done)
+                  }
+                })
+              }
+            })
+          }
+        })
       }
     })
   }

@@ -1,12 +1,14 @@
 {
   "name": "metalsmith-jstransformer",
-  "version": "0.5.3",
+  "version": "0.6.0",
   "description": "Metalsmith JSTransformer Plugin",
   "files": [
     "index.js"
   ],
   "scripts": {
-    "test": "mocha --no-timeouts && standard index.js test/index.js"
+    "test": "npm run testit && npm run xo",
+    "testit": "node test",
+    "xo": "xo --space --no-semicolon"
   },
   "repository": {
     "type": "git",
@@ -26,18 +28,21 @@
     "clone": "^1.0.2",
     "extend": "^3.0.0",
     "inputformat-to-jstransformer": "^1.1.2",
-    "jstransformer": "0.0.*",
+    "jstransformer": "0.0.4",
     "minimatch": "^3.0.0"
   },
   "devDependencies": {
     "assert-dir-equal": "1.*",
     "jstransformer-coffee-script": "*",
     "jstransformer-jade": "*",
+    "jstransformer-markdown-it": "*",
+    "jstransformer-nunjucks": "^0.2.0",
     "jstransformer-styl": "*",
     "jstransformer-uglify-js": "*",
-    "jstransformer-markdown-it": "*",
     "metalsmith": "2.*",
-    "mocha": "*",
-    "standard": "5.*"
+    "rimraf": "^2.5.0",
+    "standard": "5.*",
+    "testit": "^2.0.2",
+    "xo": "^0.12.1"
   }
 }

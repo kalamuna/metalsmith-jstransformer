@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.6.0
+
+- Merged in and deprecated [`metalsmith-jstransformer-layouts`](https://github.com/RobLoach/metalsmith-jstransformer-layouts)
+
 ## v0.5.3
 
 - Fixed output to be a Buffer
