@@ -41,7 +41,6 @@
     "jstransformer-uglify-js": "*",
     "metalsmith": "2.*",
     "rimraf": "^2.5.0",
-    "standard": "5.*",
     "testit": "^2.0.2",
     "xo": "^0.12.1"
   }
