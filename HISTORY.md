@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.7.0
+
+- Updated to `async@^2.0.0-rc.5`
+
 ## v0.6.0
 
 - Merged in and deprecated [`metalsmith-jstransformer-layouts`](https://github.com/RobLoach/metalsmith-jstransformer-layouts)
