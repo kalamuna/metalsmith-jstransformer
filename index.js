@@ -1,8 +1,8 @@
+var path = require('path')
 var jstransformer = require('jstransformer')
 var toTransformer = require('inputformat-to-jstransformer')
 var extend = require('extend')
 var async = require('async')
-var path = require('path')
 var clone = require('clone')
 var minimatch = require('minimatch')
 
@@ -173,7 +173,7 @@ module.exports = function (opts) {
       done()
     }
 
-    // TODO: Clean up function chaining tree.
+    // TODO: Clean up async function chain tree.
     // Compile all layouts.
     async.map(layouts, compileLayout, function (err) {
       if (err) {
