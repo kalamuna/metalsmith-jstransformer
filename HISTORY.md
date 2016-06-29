@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.7.1
+
+- Updated to `jstransformer@~1.0.0`
+- Updated coding standards
+
 ## v0.7.0
 
 - Updated to `async@^2.0.0-rc.5`

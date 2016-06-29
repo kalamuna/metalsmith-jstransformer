@@ -20,12 +20,14 @@ function test(name, plugins) {
     // Construct Metalsmith with a clean build directory.
     var testPath = 'test/fixtures/' + name
     rmdir.sync(testPath + '/build')
+
+    // Boot up Metalsmith and load the plugins.
     var metalsmith = new Metalsmith(testPath)
-    for (var plugin in plugins || {}) {
-      if (plugins.hasOwnProperty(plugin)) {
-        metalsmith.use(require(plugin)(plugins[plugin]))
-      }
-    }
+    Object.keys(plugins).forEach(function (pluginName) {
+      metalsmith.use(require(pluginName)(plugins[pluginName]))
+    })
+
+    // Build with Metalsmith.
     metalsmith.build(function (err) {
       if (err) {
         done(err)
@@ -43,6 +45,7 @@ testit('metalsmith-jstransformer', function () {
   test('inherited')
   test('jstransformer')
   test('layouts')
+  test('subfolder')
   test('multiple')
   test('sample')
   test('option-pattern', {
