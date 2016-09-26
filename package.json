@@ -24,12 +24,12 @@
   },
   "homepage": "https://github.com/RobLoach/metalsmith-jstransformer",
   "dependencies": {
-    "async": "^2.0.0-rc.5",
+    "async": "^2.0.1",
     "clone": "^1.0.2",
     "extend": "^3.0.0",
-    "inputformat-to-jstransformer": "^1.1.2",
+    "inputformat-to-jstransformer": "^1.1.8",
     "jstransformer": "~1.0.0",
-    "minimatch": "^3.0.0"
+    "minimatch": "^3.0.3"
   },
   "devDependencies": {
     "assert-dir-equal": "1.*",
@@ -40,8 +40,8 @@
     "jstransformer-styl": "*",
     "jstransformer-uglify-js": "*",
     "metalsmith": "2.*",
-    "rimraf": "^2.5.0",
-    "testit": "^2.0.2",
+    "rimraf": "^2.5.4",
+    "testit": "^2.1.2",
     "xo": "^0.16.0"
   }
 }
