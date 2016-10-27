@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.7.2
+
+- Updated dependencies
+
 ## v0.7.1
 
 - Updated to `jstransformer@~1.0.0`

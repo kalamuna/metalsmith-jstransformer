@@ -1,14 +1,14 @@
 {
   "name": "metalsmith-jstransformer",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Metalsmith JSTransformer Plugin",
   "files": [
     "index.js"
   ],
   "scripts": {
-    "test": "npm run testit && npm run xo",
-    "testit": "node test",
-    "xo": "xo --space --no-semicolon"
+    "test": "node test",
+    "posttest": "npm run xo",
+    "xo": "xo --space --no-semicolon --ignores=test/index.js"
   },
   "repository": {
     "type": "git",
@@ -24,8 +24,8 @@
   },
   "homepage": "https://github.com/RobLoach/metalsmith-jstransformer",
   "dependencies": {
-    "async": "^2.0.1",
-    "clone": "^1.0.2",
+    "async": "^2.1.2",
+    "clone": "^2.0.0",
     "extend": "^3.0.0",
     "inputformat-to-jstransformer": "^1.1.8",
     "jstransformer": "~1.0.0",
@@ -42,6 +42,6 @@
     "metalsmith": "2.*",
     "rimraf": "^2.5.4",
     "testit": "^2.1.2",
-    "xo": "^0.16.0"
+    "xo": "^0.17.0"
   }
 }
