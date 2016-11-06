@@ -55,7 +55,7 @@ testit('metalsmith-jstransformer', function () {
   })
   test('option-default', {
     '..': {
-      defaultLayout: 'layouts/_default.jade'
+      defaultLayout: 'layouts/_default.pug'
     }
   })
 })

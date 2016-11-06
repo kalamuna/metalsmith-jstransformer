@@ -1,6 +1,6 @@
 ---
-pageTitle: Jade
-youAreUsingJade: true
+pageTitle: Hello World
+youAreUsingPug: true
 pretty: true
 ---
 doctype html
@@ -12,15 +12,15 @@ html(lang="en")
          bar(1 + 5)
       }
   body
-    h1 Jade - node template engine
+    h1 Pug
     #container.col
-      if youAreUsingJade
+      if youAreUsingPug
         p You are amazing
       else
         p Get on it!
       p.
-        Jade is a terse and simple
+        Pug is a terse and simple
         templating language with a
         strong focus on performance
         and powerful features.
-      include ./_included.html.jade
+      include _included.html.pug

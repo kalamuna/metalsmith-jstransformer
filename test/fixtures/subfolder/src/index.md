@@ -1,5 +1,5 @@
 ---
-layout: layouts/pages/blog-post.jade
+layout: layouts/pages/blog-post.pug
 ---
 
 # Hello World!

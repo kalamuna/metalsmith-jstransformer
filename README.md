@@ -41,17 +41,17 @@ metalsmith.use(jstransformer({
 
 ### Content File Names
 
-Create files that you would like to act on with JSTransformers with file extensions representing the transformer to use, in the format `example.html.<transformer>`. For example, if you would like to process with Jade, you would name it `src/example.html.jade`.
+Create files that you would like to act on with JSTransformers with file extensions representing the transformer to use, in the format `example.html.<transformer>`. For example, if you would like to process with Pug, you would name it `src/example.html.pug`.
 
-Use multiple transformers by appending additional file extension transformer names at the end. For example, to [HTML-Minifier](https://github.com/jstransformers/jstransformer-html-minifier) our Jade example above, you would use the filename `src/example.html.html-minifier.jade`.
+Use multiple transformers by appending additional file extension transformer names at the end. For example, to [HTML-Minifier](https://github.com/jstransformers/jstransformer-html-minifier) our Pug example above, you would use the filename `src/example.html.html-minifier.pug`.
 
 #### Example
 
-The following example uses [Jade](http://jade-lang.com), so we must additionally install [`jstransformer-jade`](http://npm.im/jstransformer-jade):
+The following example uses [Pug](https://pugjs.org/), so we must additionally install [`jstransformer-pug`](http://npm.im/jstransformer-pug):
 
-    npm install jstransformer-jade --save
+    npm install jstransformer-pug --save
 
-##### `src/example.html.jade`
+##### `src/example.html.pug`
 
 ```
 ---
@@ -86,14 +86,14 @@ Declare layouts for your content with the extension of the template engine to be
 
 #### Example
 
-The following example uses [Jade](http://jade-lang.com) and [Markdown-it](https://www.npmjs.com/package/markdown-it), so we must additionally install [`jstransformer-jade`](http://npm.im/jstransformer-jade) and [`jstransformer-markdown-it`](https://www.npmjs.com/package/jstransformer-markdown-it):
+The following example uses [Pug](https://pugjs.org) and [Markdown-it](https://www.npmjs.com/package/markdown-it), so we must additionally install [`jstransformer-pug`](http://npm.im/jstransformer-pug) and [`jstransformer-markdown-it`](https://www.npmjs.com/package/jstransformer-markdown-it):
 
-    npm install jstransformer-jade --save
+    npm install jstransformer-pug --save
     npm install jstransformer-markdown-it --save
 
-##### `src/layouts/default.jade`
+##### `src/layouts/default.pug`
 
-``` jade
+``` pug
 ---
 pretty: true
 ---
@@ -110,7 +110,7 @@ Within the metadata of content in your `src` directory, tell it which layout to 
 
 ``` yaml
 ---
-layout: layouts/default.jade
+layout: layouts/default.pug
 ---
 This is my **site**!
 ```

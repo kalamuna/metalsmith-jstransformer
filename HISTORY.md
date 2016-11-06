@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.8.x: 2016-11-06
+
+- Updated devDependencies
+
 ## v0.7.2
 
 - Updated dependencies
