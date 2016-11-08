@@ -39,13 +39,16 @@ module.exports = function (opts) {
      * Compile the given layout and store it in templates.
      */
     function compileLayout(layout, done) {
+      console.log('-----\nCOMPILING', layout)
       // Find which JSTransformer to compile with.
       var transform = path.extname(layout).substring(1)
       transform = getTransformer(transform)
       if (transform) {
         // Retrieve the options for the JSTransformer.
+        var thefilename = path.join(metalsmith._directory, metalsmith._source, layout)
         var options = extend({}, files[layout], {
-          filename: path.join(metalsmith._directory, metalsmith._source, layout)
+          filename: thefilename,
+          root: metalsmith.source()
         })
 
         // Compile the content.
@@ -83,14 +86,17 @@ module.exports = function (opts) {
      * Render the given file in its layout templates.
      */
     function renderContent(file, done) {
+      console.log('RENDER\n', file)
       // Only render content, skip rendering layouts.
       if (!(file in layouts)) {
         var layoutName = files[file].layout || defaultLayout
         while (layoutName && templates[layoutName]) {
           // Build the options/locals.
+          var thefilename = path.join(metalsmith._directory, metalsmith._source, layoutName)
           var locals = extend({}, metalsmith.metadata(), files[layoutName], files[file], {
             contents: files[file].contents.toString(),
-            filename: path.join(metalsmith._directory, metalsmith._source, layoutName)
+            filename: thefilename,
+            root: metalsmith.source()
           })
 
           // Render the content using the template function and options.
