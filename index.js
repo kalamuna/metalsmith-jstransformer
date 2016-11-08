@@ -39,7 +39,6 @@ module.exports = function (opts) {
      * Compile the given layout and store it in templates.
      */
     function compileLayout(layout, done) {
-      console.log('-----\nCOMPILING', layout)
       // Find which JSTransformer to compile with.
       var transform = path.extname(layout).substring(1)
       transform = getTransformer(transform)
@@ -86,7 +85,6 @@ module.exports = function (opts) {
      * Render the given file in its layout templates.
      */
     function renderContent(file, done) {
-      console.log('RENDER\n', file)
       // Only render content, skip rendering layouts.
       if (!(file in layouts)) {
         var layoutName = files[file].layout || defaultLayout
