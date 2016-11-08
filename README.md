@@ -33,7 +33,8 @@ var jstransformer = require('metalsmith-jstransformer');
 
 metalsmith.use(jstransformer({
   'layoutPattern': 'layouts/**',
-  'defaultLayout': null
+  'defaultLayout': null,
+  'pattern': '**'
 }));
 ```
 

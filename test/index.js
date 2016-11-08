@@ -58,4 +58,9 @@ testit('metalsmith-jstransformer', function () {
       defaultLayout: 'layouts/_default.pug'
     }
   })
+  test('content-pattern', {
+    '..': {
+      pattern: '*ood*'
+    }
+  })
 })

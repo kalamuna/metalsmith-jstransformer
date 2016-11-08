@@ -26,6 +26,7 @@ module.exports = function (opts) {
   // Prepare the options.
   opts = opts || {}
   opts.layoutPattern = opts.layoutPattern || 'layouts/**'
+  opts.pattern = opts.pattern || '**'
   var defaultLayout = opts.defaultLayout
 
   // Execute the plugin.
