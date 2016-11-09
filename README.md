@@ -32,6 +32,7 @@ If you are using the JS Api for Metalsmith, then you can require the module and 
 var jstransformer = require('metalsmith-jstransformer');
 
 metalsmith.use(jstransformer({
+  'pattern': '**',
   'layoutPattern': 'layouts/**',
   'defaultLayout': null
 }));
@@ -129,6 +130,10 @@ This is my **site**!
 ```
 
 ## Configuration
+
+### `.pattern`
+
+Render content only matching the given [minimatch](https://www.npmjs.com/package/minimatch) pattern. Defaults to `**`.
 
 ### `.layoutPattern`
 

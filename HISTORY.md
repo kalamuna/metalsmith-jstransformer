@@ -1,8 +1,10 @@
 # Changelog
 
-## v0.8.x: 2016-11-06
+## v0.8.0: 2016-11-08
 
 - Updated devDependencies
+- Added Metalsmith's `root` to engine compilation
+- Allow rendering only content matching `pattern`
 
 ## v0.7.2
 
