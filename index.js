@@ -184,13 +184,14 @@ module.exports = function (opts) {
       if (err) {
         done(err)
       } else {
-        // Render the content individually.
-        async.map(filesKeys, processFile, function (err) {
+        // Render all individual content.
+        var contentFiles = minimatch.match(filesKeys, opts.pattern, {matchBase: true})
+        async.map(contentFiles, processFile, function (err) {
           if (err) {
             done(err)
           } else {
             // Render the content within the layouts.
-            async.map(filesKeys, renderContent, function (err) {
+            async.map(contentFiles, renderContent, function (err) {
               if (err) {
                 done(err)
               } else {

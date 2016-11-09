@@ -4,6 +4,7 @@
 
 - Updated devDependencies
 - Added Metalsmith's `root` to engine compilation
+- Allow rendering only content matching `pattern`
 
 ## v0.7.2
 
