@@ -1,0 +1,9 @@
+{% if buttons %}
+  <ul>
+    {% for button in buttons %}
+      <li>
+        {% include '../button/_button.twig' with button only %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
