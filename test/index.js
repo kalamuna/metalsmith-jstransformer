@@ -42,6 +42,7 @@ testit('metalsmith-jstransformer', function () {
   test('basic')
   test('convention-defaultLayout')
   test('include')
+  test('include-twig')
   test('inherited')
   test('jstransformer')
   test('layouts')
