@@ -42,7 +42,9 @@ testit('metalsmith-jstransformer', function () {
   test('basic')
   test('convention-defaultLayout')
   test('include')
-  test('include-twig')
+  test('include-twig', {
+    'metalsmith-paths': {}
+  })
   test('inherited')
   test('jstransformer')
   test('layouts')
