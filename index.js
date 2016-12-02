@@ -124,7 +124,8 @@ module.exports = function (opts) {
         if (transformer && !files[file].jstransformerDone) {
           // Construct the options.
           var options = extend({}, metalsmith.metadata(), files[file], {
-            filename: metalsmith.source() + '/' + file
+            filename: metalsmith.source() + '/' + file,
+            root: metalsmith.source()
           })
 
           // Get the transformer to render the contents.
