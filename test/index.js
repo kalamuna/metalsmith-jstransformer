@@ -74,16 +74,16 @@ testit('metalsmith-jstransformer', function () {
         },
         twig: {
           namespaces: {
-            comps: "test/fixtures/engine-options/src/components"
+            comps: 'test/fixtures/engine-options/src/components'
           }
         }
       },
       engineLocals: {
         pug: {
-          pageTitle: "Goodbye World!"
+          pageTitle: 'Goodbye World!'
         },
         twig: {
-          pageTitle: "Twig Title!"
+          pageTitle: 'Twig Title!'
         }
       }
     }
