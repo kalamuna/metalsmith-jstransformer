@@ -143,6 +143,35 @@ The pattern used to find your layouts. Defaults to `layouts/**`.
 
 If provided, will be used as the default layout for content that doesn't have a layout explicitly defined. Defaults to `null`.
 
+### `.engineOptions`
+
+Allows passing in options for the given engines.
+
+``` js
+engineOptions: {
+  // Add our own SASS include paths.
+  scss: {
+    includePaths: [
+      'styles/mystyles',
+      'node_modules/bootstrap'
+    ]
+  }
+}
+```
+
+### `.engineLocals`
+
+Allows passing in local variables for the given engines.
+
+``` js
+engineLocals: {
+  // All Twig templates will have the `baseURL` local variable.
+  twig: {
+    baseURL: 'http://mywebsite.com/'
+  }
+}
+```
+
 ## License
 
 MIT

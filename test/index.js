@@ -66,4 +66,26 @@ testit('metalsmith-jstransformer', function () {
       pattern: '*ood*'
     }
   })
+  test('engine-options', {
+    '..': {
+      engineOptions: {
+        pug: {
+          pretty: true
+        },
+        twig: {
+          namespaces: {
+            comps: "test/fixtures/engine-options/src/components"
+          }
+        }
+      },
+      engineLocals: {
+        pug: {
+          pageTitle: "Goodbye World!"
+        },
+        twig: {
+          pageTitle: "Twig Title!"
+        }
+      }
+    }
+  })
 })

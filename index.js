@@ -27,6 +27,8 @@ module.exports = function (opts) {
   opts = opts || {}
   opts.layoutPattern = opts.layoutPattern || 'layouts/**'
   opts.pattern = opts.pattern || '**'
+  opts.engineLocals = opts.engineLocals || {}
+  opts.engineOptions = opts.engineOptions || {}
   var defaultLayout = opts.defaultLayout
 
   // Execute the plugin.
@@ -46,7 +48,7 @@ module.exports = function (opts) {
       if (transform) {
         // Retrieve the options for the JSTransformer.
         var thefilename = path.join(metalsmith._directory, metalsmith._source, layout)
-        var options = extend({}, files[layout], {
+        var options = extend({}, opts.engineOptions[transform.name], files[layout], {
           filename: thefilename,
           root: metalsmith.source()
         })
@@ -56,6 +58,7 @@ module.exports = function (opts) {
         transform.compileAsync(content, options).then(function (results) {
           // Wire up the template for the layout.
           templates[layout] = results
+          templates[layout].transformName = transform.name
 
           // Set the layout as the default layout, if desired.
           if (files[layout].defaultLayout) {
@@ -92,7 +95,8 @@ module.exports = function (opts) {
         while (layoutName && templates[layoutName]) {
           // Build the options/locals.
           var thefilename = path.join(metalsmith._directory, metalsmith._source, layoutName)
-          var locals = extend({}, metalsmith.metadata(), files[layoutName], files[file], {
+          var transformName = templates[layoutName].transformName
+          var locals = extend({}, metalsmith.metadata(), opts.engineLocals[transformName], files[layoutName], files[file], {
             contents: files[file].contents.toString(),
             filename: thefilename,
             root: metalsmith.source()
@@ -123,13 +127,20 @@ module.exports = function (opts) {
         // Process the extension until the transformation is done.
         if (transformer && !files[file].jstransformerDone) {
           // Construct the options.
-          var options = extend({}, metalsmith.metadata(), files[file], {
+          var engineOpts = opts.engineOptions[transformer.name]
+          var options = extend({}, metalsmith.metadata(), engineOpts, files[file], {
+            filename: metalsmith.source() + '/' + file,
+            root: metalsmith.source()
+          })
+          // Construct the locals.
+          var engineLocals = opts.engineLocals[transformer.name]
+          var locals = extend({}, metalsmith.metadata(), engineLocals, files[file], {
             filename: metalsmith.source() + '/' + file,
             root: metalsmith.source()
           })
 
           // Get the transformer to render the contents.
-          transformer.renderAsync(files[file].contents.toString(), options, options).then(function (result) {
+          transformer.renderAsync(files[file].contents.toString(), options, locals).then(function (result) {
             // Allow providing the default output format.
             files[file].jstransformerOutputFormat = transformer.outputFormat
             // Remove an extension from the end.

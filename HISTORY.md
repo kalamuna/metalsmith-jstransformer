@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.10.0: 2016-12-16
+
+- Added `.engineOptions` and `.engineLocals`, allowing changes to how each engine functions
+
 ## v0.9.0: 2016-12-02
 
 - Updated dependencies
