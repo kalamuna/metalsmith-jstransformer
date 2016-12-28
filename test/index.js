@@ -30,7 +30,7 @@ function test(name, plugins) {
     // Build with Metalsmith.
     metalsmith.build(function (err) {
       if (err) {
-        done(err)
+        return done(err)
       }
       assertDir(testPath + '/build', testPath + '/expected')
       done()
