@@ -105,8 +105,8 @@ module.exports = function (opts) {
           // Render the content using the template function and options.
           try {
             files[file].contents = templates[layoutName].fn(locals)
-          } catch (e) {
-            done(e)
+          } catch (err) {
+            return done(err)
           }
 
           // Allow for recursive explicit layouts.
