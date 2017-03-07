@@ -1,1 +1,1 @@
-(function(){var a,c;a=42,c=!0}).call(this);
+(function(){var l;l=42,console.log(l)}).call(this);
