@@ -193,6 +193,16 @@ module.exports = function (opts) {
       done()
     }
 
+    /**
+     * Delete auxiliary metadata from the given file if exist.
+     */
+    function deleteAuxiliaryMetadata(file, done) {
+      delete files[file].jstransformerOutputFormat
+      delete files[file].jstransformerFilePath
+      delete files[file].jstransformerDone
+      done()
+    }
+
     // TODO: Clean up async function chain tree.
     // Compile all layouts.
     async.map(layouts, compileLayout, function (err) {
@@ -216,7 +226,14 @@ module.exports = function (opts) {
                     done(err)
                   } else {
                     // Now rename all the files.
-                    async.map(Object.keys(files), renameFile, done)
+                    async.map(Object.keys(files), renameFile, function (err) {
+                      if (err) {
+                        done(err)
+                      } else {
+                        // Now delete auxiliary metadata from files.
+                        async.map(Object.keys(files), deleteAuxiliaryMetadata, done)
+                      }
+                    })
                   }
                 })
               }
