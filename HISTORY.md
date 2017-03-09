@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.10.1: 2017-03-09
+
+- [#22](https://github.com/RobLoach/metalsmith-jstransformer/pull/22) Delete plugin auxiliary metadata from files
+  - By [ycherniavsky](https://github.com/ycherniavsky)
+- [#20](https://github.com/RobLoach/metalsmith-jstransformer/pull/20) Catch and process possible exception on applying compiled layout
+  - By [ycherniavsky](https://github.com/ycherniavsky)
+
 ## v0.10.0: 2016-12-16
 
 - Added `.engineOptions` and `.engineLocals`, allowing changes to how each engine functions
