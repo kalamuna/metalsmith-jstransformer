@@ -185,9 +185,8 @@ module.exports = function (opts) {
 
       // See if we are to now rename the file.
       if (filename !== file) {
-        var newFile = clone(files[file])
+        files[filename] = files[file]
         delete files[file]
-        files[filename] = newFile
       }
 
       done()
