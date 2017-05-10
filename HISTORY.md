@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.11.0: 2017-05-10
+
+- [#25](https://github.com/RobLoach/metalsmith-jstransformer/pull/25) Remove odd file clone on rename
+  - By [ycherniavsky](https://github.com/ycherniavsky)
+- [#27](https://github.com/RobLoach/metalsmith-jstransformer/pull/27) Catch minimatch errors
+  - By [larrybotha](https://github.com/larrybotha)
+
 ## v0.10.1: 2017-03-09
 
 - [#22](https://github.com/RobLoach/metalsmith-jstransformer/pull/22) Delete plugin auxiliary metadata from files
