@@ -210,40 +210,40 @@ module.exports = function (opts) {
       } else {
         // Render all individual content.
         try {
-          var contentFiles = minimatch.match(filesKeys, opts.pattern, {matchBase: true});
-        } catch (err) {
-          done(err);
-        }
+          var contentFiles = minimatch.match(filesKeys, opts.pattern, {matchBase: true})
 
-        async.map(contentFiles, processFile, function (err) {
-          if (err) {
-            done(err)
-          } else {
-            // Render the content within the layouts.
-            async.map(contentFiles, renderContent, function (err) {
-              if (err) {
-                done(err)
-              } else {
-                // Delete the layout data.
-                async.map(layouts, deleteFile, function (err) {
-                  if (err) {
-                    done(err)
-                  } else {
-                    // Now rename all the files.
-                    async.map(Object.keys(files), renameFile, function (err) {
-                      if (err) {
-                        done(err)
-                      } else {
-                        // Now delete auxiliary metadata from files.
-                        async.map(Object.keys(files), deleteAuxiliaryMetadata, done)
-                      }
-                    })
-                  }
-                })
-              }
-            })
-          }
-        })
+          async.map(contentFiles, processFile, function (err) {
+            if (err) {
+              done(err)
+            } else {
+              // Render the content within the layouts.
+              async.map(contentFiles, renderContent, function (err) {
+                if (err) {
+                  done(err)
+                } else {
+                  // Delete the layout data.
+                  async.map(layouts, deleteFile, function (err) {
+                    if (err) {
+                      done(err)
+                    } else {
+                      // Now rename all the files.
+                      async.map(Object.keys(files), renameFile, function (err) {
+                        if (err) {
+                          done(err)
+                        } else {
+                          // Now delete auxiliary metadata from files.
+                          async.map(Object.keys(files), deleteAuxiliaryMetadata, done)
+                        }
+                      })
+                    }
+                  })
+                }
+              })
+            }
+          })
+        } catch (err) {
+          done(err)
+        }
       }
     })
   }
