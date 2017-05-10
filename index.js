@@ -209,7 +209,12 @@ module.exports = function (opts) {
         done(err)
       } else {
         // Render all individual content.
-        var contentFiles = minimatch.match(filesKeys, opts.pattern, {matchBase: true})
+        try {
+          var contenAtFiles = minimatch.match(filesKeys, opts.pattern, {matchBase: true});
+        } catch (err) {
+          done(err);
+        }
+
         async.map(contentFiles, processFile, function (err) {
           if (err) {
             done(err)
