@@ -210,7 +210,7 @@ module.exports = function (opts) {
       } else {
         // Render all individual content.
         try {
-          var contenAtFiles = minimatch.match(filesKeys, opts.pattern, {matchBase: true});
+          var contentFiles = minimatch.match(filesKeys, opts.pattern, {matchBase: true});
         } catch (err) {
           done(err);
         }
