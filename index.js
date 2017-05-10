@@ -214,7 +214,7 @@ module.exports = function (opts) {
         try {
           contentFiles = minimatch.match(filesKeys, opts.pattern, {matchBase: true})
         } catch (err) {
-          done(err)
+          return done(err)
         }
 
         async.map(contentFiles, processFile, function (err) {
