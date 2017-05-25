@@ -1,6 +1,6 @@
 {
   "name": "metalsmith-jstransformer",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "Metalsmith JSTransformer Plugin",
   "files": [
     "index.js"
@@ -44,6 +44,6 @@
     "metalsmith-paths": "^3.0.1",
     "rimraf": "^2.5.4",
     "testit": "^2.1.2",
-    "xo": "^0.17.1"
+    "xo": "^0.18.2"
   }
 }

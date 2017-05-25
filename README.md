@@ -2,6 +2,7 @@
 
 [![Build Status](https://img.shields.io/travis/RobLoach/metalsmith-jstransformer/master.svg)](https://travis-ci.org/RobLoach/metalsmith-jstransformer)
 [![Dependency Status](https://david-dm.org/RobLoach/metalsmith-jstransformer.png)](https://david-dm.org/RobLoach/metalsmith-jstransformer)
+[![Greenkeeper badge](https://badges.greenkeeper.io/RobLoach/metalsmith-jstransformer.svg)](https://greenkeeper.io/)
 
 [Metalsmith](http://metalsmith.io) plugin to process files with any [JSTransformer](http://github.com/jstransformers).
 
