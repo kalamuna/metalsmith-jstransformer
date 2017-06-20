@@ -1,0 +1,16 @@
+{
+  "name": "metalsmith-jstransformer-repro",
+  "version": "1.0.0",
+  "description": "Reproducing an issue in metalsmith-jstransformer",
+  "main": "index.js",
+  "author": "Filipe Fortes <accounts@fortes.com>",
+  "license": "MIT",
+  "dependencies": {
+    "jstransformer-pug": "^0.2.3",
+    "metalsmith": "^2.3.0",
+    "metalsmith-watch": "^1.0.3"
+  },
+  "scripts": {
+    "test": "node index.js"
+  }
+}
