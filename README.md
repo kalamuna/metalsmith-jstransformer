@@ -138,11 +138,11 @@ Render content only matching the given [minimatch](https://www.npmjs.com/package
 
 ### `.layoutPattern`
 
-The pattern used to find your layouts. Defaults to `layouts/**`.
+The pattern used to find your layouts, from within the Metalsmith source directory. Defaults to `layouts/**`.
 
 ### `.defaultLayout`
 
-If provided, will be used as the default layout for content that doesn't have a layout explicitly defined. Defaults to `null`.
+If provided, will be used as the default layout for content that doesn't have a layout explicitly defined. Needs to be the full path to the file, from the Metalsmith source directory. Defaults to `null`.
 
 ### `.engineOptions`
 
