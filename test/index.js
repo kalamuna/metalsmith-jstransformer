@@ -1,7 +1,7 @@
-var assertDir = require('assert-dir-equal')
-var Metalsmith = require('metalsmith')
-var testit = require('testit')
-var rmdir = require('rimraf')
+const assertDir = require('assert-dir-equal')
+const Metalsmith = require('metalsmith')
+const testit = require('testit')
+const rmdir = require('rimraf')
 
 /**
  * Define a test case.
@@ -10,7 +10,7 @@ var rmdir = require('rimraf')
  * @param plugins - An associative array of plugin key name, and options for it.
  */
 function test(name, plugins) {
-  testit(name, function (done) {
+  testit(name, done => {
     // Ensure we load the Metalsmith JSTransformer Layouts plugin.
     plugins = plugins || {}
     if (!plugins['..']) {
@@ -18,17 +18,17 @@ function test(name, plugins) {
     }
 
     // Construct Metalsmith with a clean build directory.
-    var testPath = 'test/fixtures/' + name
+    const testPath = 'test/fixtures/' + name
     rmdir.sync(testPath + '/build')
 
     // Boot up Metalsmith and load the plugins.
-    var metalsmith = new Metalsmith(testPath)
-    Object.keys(plugins).forEach(function (pluginName) {
+    const metalsmith = new Metalsmith(testPath)
+    Object.keys(plugins).forEach(pluginName => {
       metalsmith.use(require(pluginName)(plugins[pluginName]))
     })
 
     // Build with Metalsmith.
-    metalsmith.build(function (err) {
+    metalsmith.build(err => {
       if (err) {
         return done(err)
       }
@@ -38,7 +38,7 @@ function test(name, plugins) {
   })
 }
 
-testit('metalsmith-jstransformer', function () {
+testit('metalsmith-jstransformer', () => {
   test('basic')
   test('convention-defaultLayout')
   test('include')

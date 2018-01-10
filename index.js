@@ -69,7 +69,9 @@ module.exports = function (opts) {
 
           // Finished compiling the layout into a template.
           done()
-        }, done)
+        }, err => {
+          done(err)
+        })
       } else {
         done('The layout ' + layout + ' has an unsupported transform of ' + transform + '.')
       }
