@@ -1,3 +1,5 @@
+'use strict'
+
 const path = require('path')
 const jstransformer = require('jstransformer')
 const toTransformer = require('inputformat-to-jstransformer')
