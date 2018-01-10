@@ -202,7 +202,7 @@ module.exports = function (opts) {
       done()
     }
 
-    // TODO: Clean up async function chain tree.
+    // @todo Clean up async function chain tree.
     // Compile all layouts.
     async.map(layouts, compileLayout, err => {
       if (err) {

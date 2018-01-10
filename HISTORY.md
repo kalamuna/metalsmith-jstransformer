@@ -1,8 +1,12 @@
 # Changelog
 
-## v0.12.0: 2018-01-10
+## v0.12.1: 2018-01-10
 
 - Updated dependencies
+
+## v0.12.0: 2017-05-25
+
+- Update code standards
 
 ## v0.11.0: 2017-05-10
 
