@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.12.0: 2018-01-10
+
+- Updated dependencies
+
 ## v0.11.0: 2017-05-10
 
 - [#25](https://github.com/RobLoach/metalsmith-jstransformer/pull/25) Remove odd file clone on rename
