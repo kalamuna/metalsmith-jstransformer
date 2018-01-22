@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/RobLoach/metalsmith-jstransformer"
+    "url": "git://github.com/kalamuna/metalsmith-jstransformer"
   },
   "keywords": [
     "metalsmith",
@@ -20,9 +20,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/RobLoach/metalsmith-jstransformer/issues"
+    "url": "https://github.com/kalamuna/metalsmith-jstransformer/issues"
   },
-  "homepage": "https://github.com/RobLoach/metalsmith-jstransformer",
+  "homepage": "https://github.com/kalamuna/metalsmith-jstransformer",
   "dependencies": {
     "async": "^2.6.0",
     "clone": "^2.1.1",
