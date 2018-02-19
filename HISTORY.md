@@ -3,6 +3,7 @@
 ## v0.13.0: Unreleased
 
 - Updated dependencies
+- Fixed repo URL
 
 ## v0.12.1: 2018-01-10
 
