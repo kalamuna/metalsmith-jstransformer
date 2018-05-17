@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.13.1: 2018-05-17
+## v0.13.2: 2018-05-17
 
 - [#38](https://github.com/kalamuna/metalsmith-jstransformer/pull/38) Catch exceptions from JSTransformer compileAsync and renderAsync
   - By [@ycherniavsky](https://github.com/ycherniavsky)
