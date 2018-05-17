@@ -56,8 +56,14 @@ module.exports = function (opts) {
         })
 
         // Compile the content.
-        const content = files[layout].contents.toString()
-        transform.compileAsync(content, options).then(results => {
+        let compiling
+        try {
+          // In some condition jstransformer compileAsync can throw excepton.
+          compiling = transform.compileAsync(files[layout].contents.toString(), options)
+        } catch (err) {
+          return done(err)
+        }
+        compiling.then(results => {
           // Wire up the template for the layout.
           templates[layout] = results
           templates[layout].transformName = transform.name
@@ -144,8 +150,15 @@ module.exports = function (opts) {
             root: metalsmith.source()
           })
 
-          // Get the transformer to render the contents.
-          transformer.renderAsync(files[file].contents.toString(), options, locals).then(result => {
+          // Render the contents.
+          let rendering
+          try {
+            // In some condition jstransformer renderAsync can throw excepton.
+            rendering = transformer.renderAsync(files[file].contents.toString(), options, locals)
+          } catch (err) {
+            return done(err)
+          }
+          rendering.then(result => {
             // Allow providing the default output format.
             files[file].jstransformerOutputFormat = transformer.outputFormat
             // Remove an extension from the end.
