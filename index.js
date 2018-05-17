@@ -1,3 +1,4 @@
+/* eslint valid-jsdoc: 0 */
 'use strict'
 
 const path = require('path')
@@ -31,7 +32,7 @@ module.exports = function (opts) {
   opts.pattern = opts.pattern || '**'
   opts.engineLocals = opts.engineLocals || {}
   opts.engineOptions = opts.engineOptions || {}
-  let defaultLayout = opts.defaultLayout
+  let defaultLayout = opts.defaultLayout // eslint-disable-line prefer-destructuring
 
   // Execute the plugin.
   return function (files, metalsmith, done) {
@@ -103,7 +104,7 @@ module.exports = function (opts) {
         while (layoutName && templates[layoutName]) {
           // Build the options/locals.
           const thefilename = path.join(metalsmith._directory, metalsmith._source, layoutName)
-          const transformName = templates[layoutName].transformName
+          const transformName = templates[layoutName].transformName // eslint-disable-line prefer-destructuring
           const locals = extend({}, metalsmith.metadata(), opts.engineLocals[transformName], files[layoutName], files[file], {
             contents: files[file].contents.toString(),
             filename: thefilename,
@@ -234,32 +235,28 @@ module.exports = function (opts) {
 
         async.map(contentFiles, processFile, err => {
           if (err) {
-            done(err)
-          } else {
-            // Render the content within the layouts.
-            async.map(contentFiles, renderContent, err => {
-              if (err) {
-                done(err)
-              } else {
-                // Delete the layout data.
-                async.map(layouts, deleteFile, err => {
-                  if (err) {
-                    done(err)
-                  } else {
-                    // Now rename all the files.
-                    async.map(Object.keys(files), renameFile, err => {
-                      if (err) {
-                        done(err)
-                      } else {
-                        // Now delete auxiliary metadata from files.
-                        async.map(Object.keys(files), deleteAuxiliaryMetadata, done)
-                      }
-                    })
-                  }
-                })
-              }
-            })
+            return done(err)
           }
+          // Render the content within the layouts.
+          async.map(contentFiles, renderContent, err => {
+            if (err) {
+              return done(err)
+            }
+            // Delete the layout data.
+            async.map(layouts, deleteFile, err => {
+              if (err) {
+                return done(err)
+              }
+              // Now rename all the files.
+              async.map(Object.keys(files), renameFile, err => { // eslint-disable-line max-nested-callbacks
+                if (err) {
+                  return done(err)
+                }
+                // Now delete auxiliary metadata from files.
+                async.map(Object.keys(files), deleteAuxiliaryMetadata, done)
+              })
+            })
+          })
         })
       }
     })

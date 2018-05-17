@@ -1,3 +1,4 @@
+/* eslint valid-jsdoc: 0 */
 const assertDir = require('assert-dir-equal')
 const Metalsmith = require('metalsmith')
 const testit = require('testit')
