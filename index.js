@@ -56,11 +56,10 @@ module.exports = function (opts) {
         })
 
         // Compile the content.
-        const content = files[layout].contents.toString()
         let compiling
         try {
           // In some condition jstransformer compileAsync can throw excepton.
-          compiling = transform.compileAsync(content, options)
+          compiling = transform.compileAsync(files[layout].contents.toString(), options)
         } catch (err) {
           return done(err)
         }
@@ -151,7 +150,7 @@ module.exports = function (opts) {
             root: metalsmith.source()
           })
 
-          // Get the transformer to render the contents.
+          // Render the contents.
           let rendering
           try {
             // In some condition jstransformer renderAsync can throw excepton.
