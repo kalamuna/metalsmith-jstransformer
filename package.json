@@ -38,7 +38,7 @@
     "jstransformer-nunjucks": "*",
     "jstransformer-pug": "*",
     "jstransformer-styl": "*",
-    "jstransformer-twig": "^1.4.1",
+    "jstransformer-twig": "^1.5.0-alpha.4",
     "jstransformer-uglify-js": "*",
     "metalsmith": "2.*",
     "metalsmith-paths": "^3.0.1",
