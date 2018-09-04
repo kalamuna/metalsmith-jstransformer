@@ -61,8 +61,8 @@ module.exports = function (opts) {
         try {
           // In some condition jstransformer compileAsync can throw excepton.
           compiling = transform.compileAsync(files[layout].contents.toString(), options)
-        } catch (err) {
-          return done(err)
+        } catch (error) {
+          return done(error)
         }
         compiling.then(results => {
           // Wire up the template for the layout.
@@ -76,8 +76,8 @@ module.exports = function (opts) {
 
           // Finished compiling the layout into a template.
           done()
-        }, err => {
-          done(err)
+        }, error => {
+          done(error)
         })
       } else {
         done('The layout ' + layout + ' has an unsupported transform of ' + transform + '.')
@@ -114,8 +114,8 @@ module.exports = function (opts) {
           // Render the content using the template function and options.
           try {
             files[file].contents = templates[layoutName].fn(locals)
-          } catch (err) {
-            return done(err)
+          } catch (error) {
+            return done(error)
           }
 
           // Allow for recursive explicit layouts.
@@ -156,8 +156,8 @@ module.exports = function (opts) {
           try {
             // In some condition jstransformer renderAsync can throw excepton.
             rendering = transformer.renderAsync(files[file].contents.toString(), options, locals)
-          } catch (err) {
-            return done(err)
+          } catch (error) {
+            return done(error)
           }
           rendering.then(result => {
             // Allow providing the default output format.
@@ -166,9 +166,9 @@ module.exports = function (opts) {
             files[file].jstransformerFilePath.pop()
             files[file].contents = Buffer.from(result.body)
             done()
-          }, err => {
+          }, error => {
             files[file].jstransformerDone = true
-            done(err)
+            done(error)
           })
         } else {
           // The transformer isn't supported, skip the rest.
@@ -220,45 +220,44 @@ module.exports = function (opts) {
 
     // @todo Clean up async function chain tree.
     // Compile all layouts.
-    async.map(layouts, compileLayout, err => {
-      if (err) {
-        done(err)
-      } else {
-        // Render all individual content.
-        let contentFiles = []
+    async.map(layouts, compileLayout, error => {
+      if (error) {
+        return done(error)
+      }
+      // Render all individual content.
+      let contentFiles = []
 
-        try {
-          contentFiles = minimatch.match(filesKeys, opts.pattern, {matchBase: true})
-        } catch (err) {
-          return done(err)
+      try {
+        contentFiles = minimatch.match(filesKeys, opts.pattern, {matchBase: true})
+      } catch (error2) {
+        return done(error2)
+      }
+
+      async.map(contentFiles, processFile, error => {
+        if (error) {
+          return done(error)
         }
-
-        async.map(contentFiles, processFile, err => {
-          if (err) {
-            return done(err)
+        // Render the content within the layouts.
+        async.map(contentFiles, renderContent, error => {
+          if (error) {
+            return done(error)
           }
-          // Render the content within the layouts.
-          async.map(contentFiles, renderContent, err => {
-            if (err) {
-              return done(err)
+          // Delete the layout data.
+          async.map(layouts, deleteFile, error => {
+            if (error) {
+              return done(error)
             }
-            // Delete the layout data.
-            async.map(layouts, deleteFile, err => {
-              if (err) {
-                return done(err)
+            // Now rename all the files.
+            async.map(Object.keys(files), renameFile, error => { // eslint-disable-line max-nested-callbacks
+              if (error) {
+                return done(error)
               }
-              // Now rename all the files.
-              async.map(Object.keys(files), renameFile, err => { // eslint-disable-line max-nested-callbacks
-                if (err) {
-                  return done(err)
-                }
-                // Now delete auxiliary metadata from files.
-                async.map(Object.keys(files), deleteAuxiliaryMetadata, done)
-              })
+              // Now delete auxiliary metadata from files.
+              async.map(Object.keys(files), deleteAuxiliaryMetadata, done)
             })
           })
         })
-      }
+      })
     })
   }
 }
