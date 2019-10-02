@@ -20,6 +20,7 @@ function getTransformer(name) {
   if (name in transformers) {
     return transformers[name]
   }
+
   const transformer = toTransformer(name)
   transformers[name] = transformer ? jstransformer(transformer) : false
   return transformers[name]
@@ -46,7 +47,7 @@ module.exports = function (opts) {
      */
     function compileLayout(layout, done) {
       // Find which JSTransformer to compile with.
-      let transform = path.extname(layout).substring(1)
+      let transform = path.extname(layout).slice(1)
       transform = getTransformer(transform)
       if (transform) {
         // Retrieve the options for the JSTransformer.
@@ -64,6 +65,7 @@ module.exports = function (opts) {
         } catch (error) {
           return done(error)
         }
+
         compiling.then(results => {
           // Wire up the template for the layout.
           templates[layout] = results
@@ -91,6 +93,7 @@ module.exports = function (opts) {
       if (file in files) {
         delete files[file]
       }
+
       done()
     }
 
@@ -122,6 +125,7 @@ module.exports = function (opts) {
           layoutName = files[layoutName].layout
         }
       }
+
       done()
     }
 
@@ -159,6 +163,7 @@ module.exports = function (opts) {
           } catch (error) {
             return done(error)
           }
+
           rendering.then(result => {
             // Allow providing the default output format.
             files[file].jstransformerOutputFormat = transformer.outputFormat
@@ -181,6 +186,7 @@ module.exports = function (opts) {
       const extensions = file.split('.')
       files[file].jstransformerFilePath = clone(extensions)
       extensions.reverse().pop()
+
       // Loop through the transformer series.
       async.mapSeries(extensions, processExtension, done)
     }
@@ -196,6 +202,7 @@ module.exports = function (opts) {
         if (files[file].jstransformerFilePath.length === 1 && files[file].jstransformerOutputFormat) {
           files[file].jstransformerFilePath.push(files[file].jstransformerOutputFormat)
         }
+
         filename = files[file].jstransformerFilePath.join('.')
       }
 
@@ -224,34 +231,39 @@ module.exports = function (opts) {
       if (error) {
         return done(error)
       }
+
       // Render all individual content.
       let contentFiles = []
 
       try {
         contentFiles = minimatch.match(filesKeys, opts.pattern, {matchBase: true})
-      } catch (error2) {
-        return done(error2)
+      } catch (error_) {
+        return done(error_)
       }
 
       async.map(contentFiles, processFile, error => {
         if (error) {
           return done(error)
         }
+
         // Render the content within the layouts.
         async.map(contentFiles, renderContent, error => {
           if (error) {
             return done(error)
           }
+
           // Delete the layout data.
           async.map(layouts, deleteFile, error => {
             if (error) {
               return done(error)
             }
+
             // Now rename all the files.
             async.map(Object.keys(files), renameFile, error => { // eslint-disable-line max-nested-callbacks
               if (error) {
                 return done(error)
               }
+
               // Now delete auxiliary metadata from files.
               async.map(Object.keys(files), deleteAuxiliaryMetadata, done)
             })

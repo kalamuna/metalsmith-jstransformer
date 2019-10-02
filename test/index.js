@@ -33,6 +33,7 @@ function test(name, plugins) {
       if (err) {
         return done(err)
       }
+
       assertDir(testPath + '/build', testPath + '/expected')
       done()
     })
