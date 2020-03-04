@@ -33,7 +33,7 @@ module.exports = function (opts) {
   opts.pattern = opts.pattern || '**'
   opts.engineLocals = opts.engineLocals || {}
   opts.engineOptions = opts.engineOptions || {}
-  let defaultLayout = opts.defaultLayout // eslint-disable-line prefer-destructuring
+  let {defaultLayout} = opts
 
   // Execute the plugin.
   return function (files, metalsmith, done) {
@@ -107,7 +107,7 @@ module.exports = function (opts) {
         while (layoutName && templates[layoutName]) {
           // Build the options/locals.
           const thefilename = path.join(metalsmith._directory, metalsmith._source, layoutName)
-          const transformName = templates[layoutName].transformName // eslint-disable-line prefer-destructuring
+          const {transformName} = templates[layoutName]
           const locals = extend({}, metalsmith.metadata(), opts.engineLocals[transformName], files[layoutName], files[file], {
             contents: files[file].contents.toString(),
             filename: thefilename,
