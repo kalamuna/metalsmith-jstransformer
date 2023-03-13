@@ -1,6 +1,3 @@
-/* eslint valid-jsdoc: 0 */
-'use strict'
-
 const path = require('path')
 const jstransformer = require('jstransformer')
 const toTransformer = require('inputformat-to-jstransformer')
@@ -143,8 +140,8 @@ module.exports = function (opts) {
         // Process the extension until the transformation is done.
         if (transformer && !files[file].jstransformerDone) {
           // Construct the options.
-          const engineOpts = opts.engineOptions[transformer.name]
-          const options = extend({}, metalsmith.metadata(), engineOpts, files[file], {
+          const engineOptions = opts.engineOptions[transformer.name]
+          const options = extend({}, metalsmith.metadata(), engineOptions, files[file], {
             filename: metalsmith.source() + '/' + file,
             root: metalsmith.source()
           })

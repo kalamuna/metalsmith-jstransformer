@@ -29,9 +29,9 @@ function test(name, plugins) {
     })
 
     // Build with Metalsmith.
-    metalsmith.build(err => {
-      if (err) {
-        return done(err)
+    metalsmith.build(error => {
+      if (error) {
+        return done(error)
       }
 
       assertDir(testPath + '/build', testPath + '/expected')

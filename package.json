@@ -1,6 +1,6 @@
 {
   "name": "metalsmith-jstransformer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Metalsmith JSTransformer Plugin",
   "files": [
     "index.js"
@@ -23,12 +23,12 @@
   },
   "homepage": "https://github.com/kalamuna/metalsmith-jstransformer",
   "dependencies": {
-    "async": "^3.2.0",
+    "async": "^3.2.4",
     "clone": "^2.1.2",
     "extend": "^3.0.2",
     "inputformat-to-jstransformer": "^1.4.0",
     "jstransformer": "~1.0.0",
-    "minimatch": "^3.0.4"
+    "minimatch": "^7.4.2"
   },
   "devDependencies": {
     "assert-dir-equal": "1.*",
@@ -40,9 +40,19 @@
     "jstransformer-twig": "*",
     "jstransformer-uglify-js": "*",
     "metalsmith": "2.*",
-    "metalsmith-paths": "^3.0.1",
-    "rimraf": "^3.0.2",
+    "metalsmith-paths": "^4.0.1",
+    "rimraf": "^4.4.0",
     "testit": "^3.1.0",
     "xo": "*"
+  },
+  "xo": {
+    "rules": {
+      "unicorn/prefer-module": 0,
+      "unicorn/no-array-for-each": 0,
+      "comma-dangle": 0,
+      "unicorn/prevent-abbreviations": 0,
+      "unicorn/prefer-node-protocol": 0,
+      "n/prefer-global/buffer": 0
+    }
   }
 }
